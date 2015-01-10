@@ -5,6 +5,7 @@ var hCmd = DllCall("AllocConsole");
 
 var StdOut = FileOpen("*", "w");
 var StdIn = FileOpen("*", "r");
+var StdErr = FileOpen("**", "w")
 
 function print(t) {
     StdOut.Write(t);
@@ -19,17 +20,18 @@ for(;;) {
         break;
     } else if (StrLen(Trim(str))) {
 		try {
-			var eval_start = (new Date()).getTime();
+			//var eval_start = (new Date()).getTime();
 			eval(str);
-			var eval_end = (new Date()).getTime();
-			var eval_diff = (eval_end - eval_start);
+			//var eval_end = (new Date()).getTime();
+			//var eval_diff = (eval_end - eval_start);
 			//Show execution time
-			//print("\nExecution time : " + (eval_diff/1000) + ' seconds');
+			//print("Execution time : " + (eval_diff/1000) + ' seconds');
 		} catch( e ) {
 			print(e.name+" : "+e.message);
 		}
+		print("\n");
 	}
-    print("\n>> ");
+	print(">> ");
 }
 
 Sleep(1000);
