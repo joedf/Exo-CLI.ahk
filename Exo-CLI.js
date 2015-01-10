@@ -39,8 +39,9 @@ for(;;) {
 		} else {
 			if (StringRight(str,1)=="\\") {
 				// allow continuing sections with '\'
-				CmdStack = CmdStack + StringTrimRight(str,1);
+				CmdStack = CmdStack + StringTrimRight(str,1) + "\\n";
 				CmdPrompter = "";
+				CmdStackLevel = (CmdStackLevel>0)?CmdStackLevel:1;
 			} else {
 				CmdPrompter = CmdPrompt;
 				if (StrLen(Trim(CmdStack)))
