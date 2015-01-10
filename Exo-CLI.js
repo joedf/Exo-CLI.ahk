@@ -3,9 +3,14 @@
 
 var hCmd = DllCall("AllocConsole");
 
+// See "Code Page Identifiers"
+// http://msdn.microsoft.com/library/dd317756
+DllCall("SetConsoleCP","UInt",65001);
+DllCall("SetConsoleOutputCP","UInt",65001);
+
 var StdOut = FileOpen("*", "w","CP65001");
-var StdIn = FileOpen("*", "r");
-var StdErr = FileOpen("**", "w")
+var StdIn = FileOpen("*", "r","CP65001");
+var StdErr = FileOpen("**", "w","CP65001")
 
 function print(t) {
     StdOut.Write(t);
