@@ -1,9 +1,9 @@
-﻿//exocli.js test by joedf 19:34 2015-01-09
-//many thanks to Lexikos for StdOut/StdIn (2015-01-10)
+﻿//exocli.js test by joedf 23:38 2015-01-09 EST time
+//many thanks to Lexikos for StdOut/StdIn (2015-01-09)
 
 var hCmd = DllCall("AllocConsole");
 
-var StdOut = FileOpen("*", "w");
+var StdOut = FileOpen("*", "w","CP65001");
 var StdIn = FileOpen("*", "r");
 var StdErr = FileOpen("**", "w")
 
