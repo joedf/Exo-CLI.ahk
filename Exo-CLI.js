@@ -24,24 +24,38 @@ function System(t,lock) {
 cmd = System; // alias
 
 DllCall("SetConsoleTitle","Str",CmdTitle);
-print(CmdTitle+"\nType 'Quit', 'Exit' or 'ExitApp()' to exit.\n"+CmdPrompt);
+print(CmdTitle+"\nType 'Quit', 'Exit' or 'ExitApp()' to exit.\n\n"+CmdPrompt);
 System(""); // bug that enables Mouse Scroll?!
 
+var CmdPrompter = CmdPrompt;
+var CmdStack = "";
+var CmdStackLevel = 0;
 for(;;) {
     var str = RTrim(StdIn.ReadLine(), "\r\n");
-    if ( (str.toLowerCase() == "quit") || (str.toLowerCase() == "exit") ) {
-        print("\nOk. Good bye!");
-        break;
-    } else if (StrLen(Trim(str))) {
-		try {
-			eval(str);
-		} catch( e ) {
-			StdErr.Write(e.name+" : "+e.message);
-			StdErr.__Handle;
+	if (str.length > 0) {
+		if ( (str.toLowerCase() == "quit") || (str.toLowerCase() == "exit") ) {
+			print("\nOk. Good bye!");
+			break;
+		} else {
+			if (StringRight(str,1)=="\\") {
+				// allow continuing sections with '\'
+				CmdStack = CmdStack + StringTrimRight(str,1);
+				CmdPrompter = "";
+			} else {
+				CmdPrompter = CmdPrompt;
+				if (StrLen(Trim(CmdStack)))
+					str = CmdStack + str; CmdStack = "";
+				try {
+					eval(str); // Execute code
+				} catch( e ) {
+					StdErr.Write(e.name+" : "+e.message);
+					StdErr.__Handle;
+				}
+				print("\n");
+			}
 		}
-		print("\n");
 	}
-	print(CmdPrompt);
+	print(CmdPrompter);
 }
 
 Sleep(1000);
