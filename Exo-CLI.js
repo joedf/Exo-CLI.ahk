@@ -27,7 +27,8 @@ for(;;) {
 			//Show execution time
 			//print("Execution time : " + (eval_diff/1000) + ' seconds');
 		} catch( e ) {
-			print(e.name+" : "+e.message);
+			StdErr.Write(e.name+" : "+e.message);
+			StdErr.__Handle;
 		}
 		print("\n");
 	}
