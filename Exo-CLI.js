@@ -1,26 +1,26 @@
 ﻿//exocli.js test by joedf 23:38 2015-01-09 EST time
 //many thanks to Lexikos for StdOut/StdIn (2015-01-09)
 
+var CmdTitle = "AutoHotkey v"+A_AhkVersion+" "+(A_IsUnicode?"Unicode":"ANSI")+" "+(A_PtrSize*8)+"-bit"+" with Exo";
+var CmdPrompt = ">> ";
+
 var hCmd = DllCall("AllocConsole");
 
-// See "Code Page Identifiers"
-// http://msdn.microsoft.com/library/dd317756
-DllCall("SetConsoleCP","UInt",65001);
-DllCall("SetConsoleOutputCP","UInt",65001);
-
-var StdOut = FileOpen("*", "w","CP65001");
-var StdIn = FileOpen("*", "r","CP65001");
-var StdErr = FileOpen("**", "w","CP65001")
+var StdOut = FileOpen("*", "w");
+var StdIn = FileOpen("*", "r");
+var StdErr = FileOpen("**", "w");
 
 function print(t) {
     StdOut.Write(t);
     StdOut.__Handle; // Flush the buffer.
 }
 
-print("AutoHotkey v" + A_AhkVersion + " with Exo\n>> ");
+DllCall("SetConsoleTitle","Str",CmdTitle);
+print(CmdTitle+"\nType 'Quit', 'Exit' or 'ExitApp()' to exit.\n"+CmdPrompt);
+
 for(;;) {
     var str = RTrim(StdIn.ReadLine(), "\r\n");
-    if (str.toLowerCase() == "quit") {
+    if ( (str.toLowerCase() == "quit") || (str.toLowerCase() == "exit") ) {
         print("\nOk. Good bye!");
         break;
     } else if (StrLen(Trim(str))) {
@@ -37,7 +37,7 @@ for(;;) {
 		}
 		print("\n");
 	}
-	print(">> ");
+	print(CmdPrompt);
 }
 
 Sleep(1000);
