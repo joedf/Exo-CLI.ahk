@@ -18,7 +18,6 @@ for(;;) {
         print("\nOk. Good bye!");
         break;
     } else if (StrLen(Trim(str))) {
-		print("\n");
 		try {
 			var eval_start = (new Date()).getTime();
 			eval(str);
