@@ -17,14 +17,15 @@ function print(t) {
 function System(t,lock) {
 	if(typeof(lock)==='undefined') lock = true;
 	if (lock)
-		return RunWait("cmd /c "+t);
+		return RunWait(ComSpec+" /c "+t);
 	else
-		return Run("cmd /c "+t);
+		return Run(ComSpec+" /c "+t);
 }
 cmd = System; // alias
 
 DllCall("SetConsoleTitle","Str",CmdTitle);
 print(CmdTitle+"\nType 'Quit', 'Exit' or 'ExitApp()' to exit.\n"+CmdPrompt);
+System(""); // bug that enables Mouse Scroll?!
 
 for(;;) {
     var str = RTrim(StdIn.ReadLine(), "\r\n");
