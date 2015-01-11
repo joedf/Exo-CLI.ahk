@@ -29,7 +29,6 @@ System(""); // bug that enables Mouse Scroll?!
 
 var CmdPrompter = CmdPrompt;
 var CmdStack = "";
-var CmdStackLevel = 0;
 for(;;) {
     var str = RTrim(StdIn.ReadLine(), "\r\n");
 	if (str.length > 0) {
@@ -41,7 +40,6 @@ for(;;) {
 				// allow continuing sections with '\'
 				CmdStack = CmdStack + StringTrimRight(str,1) + "\\n";
 				CmdPrompter = "";
-				CmdStackLevel = (CmdStackLevel>0)?CmdStackLevel:1;
 			} else {
 				CmdPrompter = CmdPrompt;
 				if (StrLen(Trim(CmdStack)))
