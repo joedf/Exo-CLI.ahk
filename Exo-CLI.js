@@ -33,7 +33,7 @@ System(""); // bug that enables Mouse Scroll?!
 var CmdPrompter = CmdPrompt;
 var CmdStack = "";
 for(;;) {
-    var str = RTrim(StdIn.ReadLine(), "\r\n");
+    var str = RTrim(StdIn.ReadLine(), "\r\n\t ");
 	if (str.length > 0) {
 		if ( (str.toLowerCase() == "quit") || (str.toLowerCase() == "exit") ) {
 			print("\nOk. Good bye!");
@@ -43,8 +43,7 @@ for(;;) {
 		} else {
 			if (StringRight(str,1)==";") {
 				CmdPrompter = "\n"+CmdPrompt;
-				if (StrLen(Trim(CmdStack)))
-					str = CmdStack + str; CmdStack = "";
+				str = CmdStack + str; CmdStack = "";
 				try {
 					eval(str); // Execute code
 				} catch( e ) {
@@ -52,7 +51,10 @@ for(;;) {
 					StdErr.__Handle;
 				}
 			} else { // allow continuing sections
-				CmdStack = CmdStack + str + "\n";
+				if (StringRight(str,1)=="\\")
+					CmdStack = CmdStack + StringTrimRight(str,1) + "\\n";
+				else
+					CmdStack = CmdStack + str + "\n";
 				CmdPrompter = Chr(192) + "> ";
 			}
 		}
