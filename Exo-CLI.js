@@ -1,10 +1,11 @@
-﻿// Exo-CLI.js by joedf 23:38 2015-01-09 EST time
+﻿// Exo-CLI.js by joedf 14:30 2015-01-12 EST time
 // Many thanks to Lexikos for StdOut/StdIn (2015-01-09)
 
 var CmdTitle = "AutoHotkey v"+A_AhkVersion+" "+(A_IsUnicode?"Unicode":"ANSI")+" "+(A_PtrSize*8)+"-bit"+" with Exo";
 var CmdPrompt = ">> ";
 
 var hCmd = DllCall("AllocConsole");
+var CmdPID = WinGet("PID","ahk_id "+GuiControlGet("Hwnd","wb"))
 
 var StdOut = FileOpen("*", "w");
 var StdIn = FileOpen("*", "r");
@@ -15,8 +16,7 @@ function print(t) {
     StdOut.__Handle; // Flush the buffer.
 }
 function System(t,lock) {
-	if(typeof(lock)==='undefined') lock = true;
-	if (lock)
+	if (typeof(lock)==='undefined')
 		return RunWait(ComSpec+" /c "+t);
 	else
 		return Run(ComSpec+" /c "+t);
@@ -24,7 +24,10 @@ function System(t,lock) {
 cmd = System; // alias
 
 DllCall("SetConsoleTitle","Str",CmdTitle);
-print(CmdTitle+"\nType 'Quit', 'Exit' or 'ExitApp()' to exit.\n\n"+CmdPrompt);
+print(CmdTitle);
+print("\nType 'Quit', 'Exit' or 'ExitApp()' to exit.");
+print("\nEnd lines with ';' to evalute.");
+print("\n\n"+CmdPrompt);
 System(""); // bug that enables Mouse Scroll?!
 
 var CmdPrompter = CmdPrompt;
@@ -35,13 +38,11 @@ for(;;) {
 		if ( (str.toLowerCase() == "quit") || (str.toLowerCase() == "exit") ) {
 			print("\nOk. Good bye!");
 			break;
+		} else if (str.toLowerCase() == "clear") {
+			System("cls");
 		} else {
-			if (StringRight(str,1)=="\\") {
-				// allow continuing sections with '\'
-				CmdStack = CmdStack + StringTrimRight(str,1) + "\\n";
-				CmdPrompter = "";
-			} else {
-				CmdPrompter = CmdPrompt;
+			if (StringRight(str,1)==";") {
+				CmdPrompter = "\n"+CmdPrompt;
 				if (StrLen(Trim(CmdStack)))
 					str = CmdStack + str; CmdStack = "";
 				try {
@@ -50,10 +51,12 @@ for(;;) {
 					StdErr.Write(e.name+" : "+e.message);
 					StdErr.__Handle;
 				}
-				print("\n");
+			} else { // allow continuing sections
+				CmdStack = CmdStack + str + "\n";
+				CmdPrompter = Chr(192) + "> ";
 			}
 		}
-	}
+	} else { CmdPrompter = CmdPrompt; }
 	print(CmdPrompter);
 }
 
