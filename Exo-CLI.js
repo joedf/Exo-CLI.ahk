@@ -1,5 +1,10 @@
-﻿// Exo-CLI.js by joedf 14:30 2015-01-12 EST time
-// Many thanks to Lexikos for StdOut/StdIn (2015-01-09)
+﻿var CmdVersion = function(){/*
+	Exo-CLI.js by joedf
+	Revision Date: 15:04 2015-01-12
+	Many thanks to Lexikos for StdOut/StdIn
+	Many thanks to Aurelain for [Exo](github.com/Aurelain/Exo)
+*/}.toString().slice(15,-3);
+
 
 var CmdTitle = "AutoHotkey v"+A_AhkVersion+" "+(A_IsUnicode?"Unicode":"ANSI")+" "+(A_PtrSize*8)+"-bit"+" with Exo";
 var CmdPrompt = ">> ";
@@ -40,6 +45,8 @@ for(;;) {
 			break;
 		} else if (str.toLowerCase() == "clear") {
 			System("cls");
+		} else if (str.toLowerCase() == "version") {
+			print("\n"+CmdVersion);
 		} else {
 			if (StringRight(str,1)==";") {
 				CmdPrompter = "\n"+CmdPrompt;
