@@ -1,5 +1,4 @@
-Exo-CLI
-===========================
+# ![*](Resources/logo.png) Exo-CLI
 
 Command line interface for AHK-Exo Lang  
 Released under the [MIT License](http://opensource.org/licenses/MIT)  
