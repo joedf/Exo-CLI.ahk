@@ -50,7 +50,7 @@ for(;;) {
 			print("\n"+CmdVersion);
 		} else {
 			if (StringRight(str,1)==";") {
-				CmdPrompter = "\n"+CmdPrompt;
+				CmdPrompter = CmdPrompt;
 				str = CmdStack + str; CmdStack = "";
 				try {
 					eval(str); // Execute code
@@ -58,6 +58,7 @@ for(;;) {
 					StdErr.Write(e.name+" : "+e.message);
 					StdErr.__Handle;
 				}
+				print("\n");
 			} else { // allow continuing sections
 				if (StringRight(str,1)=="\\")
 					CmdStack = CmdStack + StringTrimRight(str,1) + "\\n";
@@ -66,7 +67,7 @@ for(;;) {
 				CmdPrompter = Chr(192) + "> ";
 			}
 		}
-	} else { CmdPrompter = CmdPrompt; }
+	}
 	print(CmdPrompter);
 }
 
