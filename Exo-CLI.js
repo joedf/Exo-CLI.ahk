@@ -1,11 +1,12 @@
 ﻿var CmdVersion = function(){/*
 	Exo-CLI.js by joedf
-	Revision Date: 15:04 2015-01-12
+	Revision Date: 17:12 2015-01-12
 	Many thanks to Lexikos for StdOut/StdIn
 	Many thanks to Aurelain for [Exo](github.com/Aurelain/Exo)
 */}.toString().slice(15,-3);
 
 
+Menu("Tray","NoIcon"); //Hide TrayIcon
 var CmdTitle = "AutoHotkey v"+A_AhkVersion+" "+(A_IsUnicode?"Unicode":"ANSI")+" "+(A_PtrSize*8)+"-bit"+" with Exo";
 var CmdPrompt = ">> ";
 
