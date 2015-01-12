@@ -14,7 +14,7 @@
 	regread,ahkdir,HKLM,SOFTWARE\AutoHotkey,InstallDir
 	AhkCompiler:=ahkdir "\Compiler\Ahk2Exe.exe"
 	bin:=ahkdir "\Compiler\Unicode 32-bit.bin"
-	RunWait, %AhkCompiler% /in "%A_ScriptFullPath%" /out "%A_ScriptDir%\Exo-CLI.exe" /icon "%A_ScriptDir%\logo.ico" /mpress 1 /bin "%bin%",,UseErrorLevel
+	RunWait, %AhkCompiler% /in "%A_ScriptFullPath%" /out "%A_ScriptDir%\Exo-CLI.exe" /icon "%A_ScriptDir%\Resources\logo.ico" /mpress 1 /bin "%bin%",,UseErrorLevel
 	if ErrorLevel
 		MsgBox An Error occurred.
 	Progress, 80, Restoring Exo.ahk, Compiling Exo-CLI ...
