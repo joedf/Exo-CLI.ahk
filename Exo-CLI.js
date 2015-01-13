@@ -55,7 +55,10 @@ for(;;) {
 				try {
 					eval(str); // Execute code
 				} catch( e ) {
-					StdErr.Write(e.name+" : "+e.message);
+					if ( (e.name == "Error") && (StrLen(Trim(e.message))==0) )
+						StdErr.Write("AutoHotkeyError : "+e.What);
+					else
+						StdErr.Write(e.name+" : "+e.message);
 					StdErr.__Handle;
 				}
 				print("\n");
