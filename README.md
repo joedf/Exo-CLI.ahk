@@ -10,4 +10,4 @@ Released under the [MIT License](http://opensource.org/licenses/MIT)
   
 ###How to Compile
 Copy `Compile.ahk`, `Resources/` and `Exo-CLI.js` in to a folder with all the `Exo` files. Then, Simply run `Compile.ahk` and it will create `Exo-CLI.exe`.  
-_NB_ : AutoHotkey needs to be **Installed**.
+_NB_ : AutoHotkey needs to be **Installed** to be able to compile. Once compiled, `Exo-CLI.exe` will be a standalone application.
