@@ -24,7 +24,7 @@
 	Sleep,1000
 	ExitApp
 }
-hRSrc := DllCall("FindResource", "ptr", 0, "str", "..\Exo-CLI.js", "ptr", 10, "ptr")
+hRSrc := DllCall("FindResource", "ptr", 0, "str", "Exo-CLI.js", "ptr", 10, "ptr")
 sData := DllCall("SizeofResource", "ptr", 0, "ptr", hRSrc, "uint")
 hRes := DllCall("LoadResource", "ptr", 0, "ptr", hRSrc, "ptr")
 pData := DllCall("LockResource", "ptr", hRes, "ptr")
