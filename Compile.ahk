@@ -32,6 +32,7 @@ pData := DllCall("LockResource", "ptr", hRes, "ptr")
 main:=-1
 mainPath:=A_ScriptDir
 mainContent:=StrGet(pData,sData,"UTF-8")
+#NoTrayIcon
 #Include Exo.ahk
 
 return
