@@ -1,6 +1,6 @@
 ﻿var CmdVersion = function(){/*
 	Exo-CLI.js by joedf
-	Revision Date: 17:12 2015-01-12
+	Revision Date: 2018-01-05 10:51:40 PM EST
 	Many thanks to Lexikos for StdOut/StdIn
 	Many thanks to Aurelain for [Exo](github.com/Aurelain/Exo)
 */}.toString().slice(15,-3);
@@ -32,7 +32,7 @@ cmd = System; // alias
 DllCall("SetConsoleTitle","Str",CmdTitle);
 print(CmdTitle);
 print("\nType 'Quit', 'Exit' or 'ExitApp()' to exit.");
-print("\nEnd lines with ';' to evalute.");
+print("\nEnd lines with ';' to evaluate.");
 print("\n\n"+CmdPrompt);
 System(""); // bug that enables Mouse Scroll?!
 
