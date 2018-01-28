@@ -4,10 +4,13 @@
 	Progress, 10, Backing Up Exo.ahk, Compiling Exo-CLI ...
 	bkp:=d
 	Progress, 20, Configuring Exo.ahk, Compiling Exo-CLI ...
-	var_a:="main := ",rep_a:="blahblah :="
+
+	; Inject Exo-CLI code
 	var_b:="FileRead, mainContent, %mainPath%"
-	StringReplace,d,d,%var_a%,%rep_a%
+	var_c:="if (!mainPath) {",rep_c:="`ngosub,loadExoCLI_values`n`nif (!mainPath) {"
 	StringReplace,d,d,%var_b%
+	StringReplace,d,d,%var_c%,%rep_c%
+	
 	FileDelete,%f%
 	FileAppend,%d%,%f%
 	Progress, 35, Calling Ahk2Exe, Compiling Exo-CLI ...
@@ -29,11 +32,14 @@ sData := DllCall("SizeofResource", "ptr", 0, "ptr", hRSrc, "uint")
 hRes := DllCall("LoadResource", "ptr", 0, "ptr", hRSrc, "ptr")
 pData := DllCall("LockResource", "ptr", hRes, "ptr")
 
-main:=-1
-mainPath:=A_ScriptDir
-mainContent:=StrGet(pData,sData,"UTF-8")
+main:=0
 #NoTrayIcon
 #Include Exo.ahk
 
 return
 FileInstall, Exo-CLI.js, NEVER
+
+loadExoCLI_values:
+	mainPath:=A_ScriptDir
+	mainContent:=StrGet(pData,sData,"UTF-8")
+	return
